@@ -7,25 +7,25 @@ currently config is hard coded:
 
 config.h:
 
-  aimbot mouse_5
+	aimbot mouse_5
   
-  triggerbot mouse_4
+	triggerbot mouse_4
+ 
+ 	rcsScale is 1.0f(perfect)
   
-  rcsScale is 1.0f(perfect)
+	resolution 1280x720
   
-  resolution 1280x720
-  
-main.cpp(resolution)
+main.cpp(resolution):
 
-  w 1280
+  	w 1280
   
-  h 270
+  	h 270
   
 yet to be done:
 
--wrapper around ntgetasynckeystate
+	-wrapper around ntgetasynckeystate
 
--menu
+	-menu
 
 
 ![alt text](https://github.com/d0stoievskiii/cs2-external-base/blob/master/Untitled.png?raw=true)
