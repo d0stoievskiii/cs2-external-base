@@ -25,4 +25,5 @@
 #define m_aimPunchCache 5360
 #define m_bIsScoped 8864
 #define m_iShotsFired 8884
+#define m_iIDEntIndex 5032
 #define m_vecLastClipCameraPos 4820

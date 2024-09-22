@@ -19,7 +19,7 @@ targets = ["dwEntityList", "dwGameRules", "dwLocalPlayerController", "dwLocalPla
             "v_angle", "m_vecLastClipCameraPos", "m_vLastSlopeCheckPos", "m_modelState",
             "m_vOldOrigin", "m_bWarmupPeriod", "m_bHasMatchStarted", "m_bFreezePeriod",
             "m_sSanitizedPlayerName", "m_flFOVSensitivityAdjust", "m_aimPunchCache",
-            "m_aimPunchAngle", "m_iShotsFired", "m_bIsScoped"]
+            "m_aimPunchAngle", "m_iShotsFired", "m_bIsScoped", "m_iIDEntIndex"]
 
 def get_tuple_list(url_offsets, url_client, list_offsets):
     response = requests.get(url_offsets)

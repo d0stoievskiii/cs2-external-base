@@ -16,4 +16,5 @@ namespace shared {
 	inline int screeny;
 	inline float verticalScale;
 	inline float horizontalScale;
+	inline Vec2 oldPunch;
 }

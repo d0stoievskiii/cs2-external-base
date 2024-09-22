@@ -15,7 +15,7 @@ void esp::drawBox(Entity& entity, VIEW_MATRIX& viewMatrix) {
 	discord::draw::Point min = { originToScreen.x - halfwidth, headToScreen.y - height/10 };
 
 	discord::draw::Rect(shared::frame, max, min, shared::red);
-	printf("Drawn for %s\n", entity.getName().c_str());
+	//printf("Drawn for %s\n", entity.getName().c_str());
 	drawHealthBar(min, entity.health, height + height/10);
 }
 

@@ -39,7 +39,7 @@ int main(void) {
 	shared::horizontalScale = ((float)H / shared::screeny);
 	LoadLibrary(L"win32u");
 	aimbot::MC = mouseController();
-
+	aimbot::target_selection_method = aimbot::_locateClosestToCrosshair;
 	printf("press any key...");
 	getchar();
 
@@ -50,8 +50,11 @@ int main(void) {
 			entry::gameLoop();
 			discord::sendFrame(shared::DC, (uint32_t)W, (uint32_t)H, shared::frame.buffer, shared::frame.size);
 		}
-		if ((GetAsyncKeyState(VK_INSERT) & 0x8000)) break;
+		if ((GetAsyncKeyState(VK_END))) break;
 	}
+
+	aimbot::uninit();
+
 	discord::draw::clearFrame(shared::frame);
 	discord::sendFrame(shared::DC, (uint32_t)W, (uint32_t)H, shared::frame.buffer, shared::frame.size);
 	discord::disconnect(shared::DC);

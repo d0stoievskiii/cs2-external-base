@@ -50,7 +50,7 @@ UTILVEC LocalPlayer::getAimPunchCache() {
 }
 
 Vec2 LocalPlayer::getAimPunchAngle() {
-    aimPunchAngle = MM.ReadMem<Vec2>(pawn + m_aimPunchAngle);
+    aimPunchAngle = MM.ReadMem<Vec2>(aimPunchCache.data + (aimPunchCache.count -1)*sizeof(Vec3));
     return aimPunchAngle;
 }
 
@@ -59,24 +59,40 @@ int LocalPlayer::getShotsFired() {
     return shotsFired;
 }
 
-uintptr_t Entity::getEntry(int32_t index) {
-    uintptr_t entry = MM.ReadMem<uintptr_t>(entityList + (0x8 * (index & 0x7FFF) >> 9) + 0x10);
-    return entry;
+int LocalPlayer::getCrosshairEntity() {
+    return MM.ReadMem<int>(pawn + m_iIDEntIndex);
 }
 
+void Entity::init(int32_t index, uintptr_t list) {
+    id = index;
+    entityList = list;
+}
+
+uintptr_t Entity::getEntry(int32_t index) {
+    uintptr_t entry = MM.ReadMem<uintptr_t>(entityList + 0x10);
+    return entry;
+}
+//0x8 * ((index & 0x7FFF) >> 9)
 uintptr_t Entity::getEntry(uint32_t index) {
-    uintptr_t entry = MM.ReadMem<uintptr_t>(entityList + 0x8 * ((index & 0x7FFF) >> 9) + 0x10);
+    uintptr_t entry = MM.ReadMem<uintptr_t>(entityList + 0x10);
     return entry;
 }
 
 uintptr_t Entity::getController() {
     uintptr_t entry = getEntry(id);
-    controller = MM.ReadMem<uintptr_t>(entry + 0x78 * (id & 0x1FF));
+    controller = MM.ReadMem<uintptr_t>(entry + 0x78 * id);
     return controller;
 }
 
 uintptr_t Entity::getPawn() {
     idx = MM.ReadMem<uint32_t>(controller + m_hPlayerPawn);
+    uintptr_t entry = getEntry(idx);
+    pawn = MM.ReadMem<uintptr_t>(entry + 0x78 * (idx & 0x1FF));
+    return pawn;
+}
+
+uintptr_t Entity::getPawnByID(int id) {
+    idx = id;
     uintptr_t entry = getEntry(idx);
     pawn = MM.ReadMem<uintptr_t>(entry + 0x78 * (idx & 0x1FF));
     return pawn;

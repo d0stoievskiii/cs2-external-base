@@ -8,21 +8,17 @@
 inline MemoryManager MM;
 
 typedef struct _UTILVEC {
-    uintptr_t x = 0;
-    uintptr_t y = 0;
+    uintptr_t count;
+    uintptr_t data;
 } UTILVEC;
 
 class Entity {
 public:
     uint32_t idx;
-
     int32_t id;
     uintptr_t entityList;
-
-    Entity(int32_t index, uintptr_t list) {
-        id = index;
-        entityList = list;
-    }
+    
+    void init(int32_t index, uintptr_t list);
 
     uintptr_t getEntry(int32_t index);
     uintptr_t getEntry(uint32_t index);
@@ -49,11 +45,15 @@ public:
 
     uintptr_t pawn;
     uintptr_t getPawn();
+    uintptr_t getPawnByID(int id);
 
     std::string name;
     std::string getName();
 
     Vec3 getBonePos(int bone);
+
+    float distToCrosshair;
+    Vec3 aimToAngle;
 };
 
 class LocalPlayer {
@@ -98,7 +98,7 @@ public:
 
     bool getIsScoped();
 
-
+    int getCrosshairEntity();
 };
 
 class Game {

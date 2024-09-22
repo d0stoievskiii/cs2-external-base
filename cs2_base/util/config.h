@@ -7,7 +7,7 @@
 
 typedef struct _ESP_CONFIG {
 
-    bool gState = false;
+    bool gState = true;
     bool isBox = true;
     bool isHealthBar = true;
 
@@ -19,26 +19,27 @@ typedef struct _ESP_CONFIG {
 
 typedef struct _AIMBOT_CONFIG {
 
-    bool gState = false;
-    bool isRCS = false;
+    bool gState = true;
+    bool isRCS = true;
     bool isLOCK = false;
     bool isTrigger = false;
+    bool drawFov = true;
 
     bool isTriggerHotkey = false;
     bool isAimHotkey = false;
 
-    float smoothing = 1.0f;
+    float smoothing = 0.8f;
     float fov = 5.0f;
+    float RCScale = 1.0f;
 
-    int bone = 0;
+    int bone = 1;
     std::vector<std::string> bones = { "Head", "Neck", "Chest" };
     std::map<std::string, int> bonemap = { {"Head", 6} , {"Neck", 5}, {"Chest", 4} };
 
-
     int aim_HOTKEY_select = 0;
     int trigger_HOTKEY_select = 1;
-    int aim_HOTKEY = 0;
-    int trigger_HOTKEY = 0;
+    int aim_HOTKEY = 3;
+    int trigger_HOTKEY = 2;
 
     std::vector<std::string> HOTKEYS = { "Left mouse", "Right mouse", "MOUSE4", "MOUSE5" ,"SHIFT", "ALT", "CTRL" };
 	std::map <std::string, int> HOTKEYmap = { {"SHIFT", VK_SHIFT}, {"ALT", VK_MENU}, {"CTRL", VK_CONTROL}, {"Left mouse", VK_LBUTTON}, {"Right mouse", VK_RBUTTON}, {"MOUSE4", VK_XBUTTON2}, {"MOUSE5", VK_XBUTTON1} };

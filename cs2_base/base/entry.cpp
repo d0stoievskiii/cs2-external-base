@@ -11,20 +11,31 @@ void entry::gameLoop() {
 	localPlayer.getSens();
 	localPlayer.getCameraPos();
 	localPlayer.getViewAngles();
-	// printf("camera @ <%.2f, %.2f, %.2f>\n", localPlayer.cameraPos.x, localPlayer.cameraPos.y, localPlayer.cameraPos.z);
-	//printf("vAngles @ <%.2f, %.2f, %.2f>\n", localPlayer.viewAngles.x, localPlayer.viewAngles.y, localPlayer.viewAngles.z);
-
-	for (int i = 0; i < 64; i++) {
-		Entity entity = Entity(i, entityList);
-		entity.getController();
-		if (entity.controller == 0) continue;
-		entity.getName();
-		entity.getPawn();
-		entity.getHealth();
-		entity.getTeam();
-		if (entity.team == localPlayer.team) continue;
-		if (!(strcmp(entity.name.c_str(), "DemoRecorder")) || !(strcmp(entity.name.c_str(), "NoName")) || (entity.health > 100 || entity.health <= 0)) continue;
-		esp::draw(entity, viewMatrix);
-		aimbot::aim(localPlayer, entity);
+	
+	std::vector<Entity> entities(64);
+	aimbot::init();
+	for (int i = 1; i < 64; i++) {
+		entities[i].init(i, entityList);
+		entities[i].getController();
+		if (entities[i].controller == 0) continue;
+		entities[i].getName();
+		entities[i].getPawn();
+		entities[i].getHealth();
+		entities[i].getTeam();
+		if (entities[i].team == localPlayer.team) continue;
+		if ((entities[i].health > 100 || entities[i].health <= 0)) {
+			//if (aimbot::aimTarget == i) aimbot::aimTarget = 0;
+			continue;
+		}
+		if (!(strcmp(entities[i].name.c_str(), "DemoRecorder")) || !(strcmp(entities[i].name.c_str(), "NoName"))) continue;
+		if (shared::config.espconfig.gState) {
+			esp::draw(entities[i], viewMatrix);		
+		}
+		aimbot::searchTarget(localPlayer, entities[i]);
 	}
+	if (shared::config.aimconfig.drawFov) {
+		aimbot::drawFOV();
+	}
+	aimbot::aim(localPlayer, entities[aimbot::aimTarget]);
+	aimbot::trigger(localPlayer, entityList);
 }
